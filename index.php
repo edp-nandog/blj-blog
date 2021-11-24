@@ -12,7 +12,7 @@
     <div class="container">
         <a class="directory" href="index.php">Aktuell</a>
         <a class="directory" href="erstellen.php">Erstellen</a>
-        <a class="directory" href="erstellen.php">Info</a>
+        <a class="directory" href="info.php">Info</a>
     </div><br>
 
     <div class="posts">

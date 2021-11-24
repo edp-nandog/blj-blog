@@ -12,7 +12,7 @@
     <div class="container">
         <a class="directory" href="index.php">Aktuell</a>
         <a class="directory" href="erstellen.php">Erstellen</a>
-        <a class="directory" href="erstellen.php">Info</a>
+        <a class="directory" href="info.php">Info</a>
     </div><br>
     <div id="container2">
         <p>Name</p>
@@ -21,12 +21,12 @@
         <input type="text" name="titel" value="<?= $titel ?? ''?>">
         <p>Text</p>
         <textarea cols="50" rows="5" name="text" value="<?= $text ?? ''?>"></textarea><br><br>
-        <input type="submit" value="Anmelden">
+        <input type="submit" value="Posten!">
     </div>
 
     <div id="footer">
         <p>Footer</p>
     </div>
-    
+
 </body>
 </html>
