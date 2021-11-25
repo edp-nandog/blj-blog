@@ -2,14 +2,13 @@
 
 $username = $_POST['name'] ?? '';
 $titel = $_POST['titel'] ?? '';
-$personaltext = $_POST['text'] ?? '';
-
+$text = $_POST['text'] ?? '';
 
 $dbConnection = new PDO('mysql:host=localhost;dbname=blog', 'root', '');
 $stmt = $dbConnection->prepare('INSERT INTO posts (created_by, created_at, post_title, post_text)
-                                    VALUES (:username, now, :titel, :personaltext())');
+                                    VALUES (:username, now(), :titel, :text)');
 
-$stmt->execute([':username' => 'name', ':titel' => 'titel', ':personaltext' => 'text']);
+$stmt->execute([':username' => "$username", ':titel' => "$titel", ':text' => "$text"]);
 
 ?>
 
@@ -37,7 +36,7 @@ $stmt->execute([':username' => 'name', ':titel' => 'titel', ':personaltext' => '
         <p>Titel</p>
         <input type="text" name="titel" value="<?= $titel ?? ''?>">
         <p>Text</p>
-        <textarea cols="50" rows="5" name="text" value="<?= $personaltext ?? ''?>"></textarea><br><br>
+        <textarea cols="50" rows="5" name="text" value="<?= $text ?? ''?>"></textarea><br><br>
         <input type="submit" value="Posten!">
     </div>
 
