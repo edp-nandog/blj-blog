@@ -1,8 +1,9 @@
 <?php
 
-$username = $_POST['name'] ?? '';
-$titel = $_POST['titel'] ?? '';
-$text = $_POST['text'] ?? '';
+
+[$username = $_POST['name'] ?? ''];
+[$titel = $_POST['titel'] ?? ''];
+[$text = $_POST['text'] ?? ''];
 
 $dbConnection = new PDO('mysql:host=localhost;dbname=blog', 'root', '');
 $stmt = $dbConnection->prepare('INSERT INTO posts (created_by, created_at, post_title, post_text)
@@ -10,9 +11,18 @@ $stmt = $dbConnection->prepare('INSERT INTO posts (created_by, created_at, post_
 
 $stmt->execute([':username' => "$username", ':titel' => "$titel", ':text' => "$text"]);
 
+function connectToIPDatabase() {
+    try {
+        return new PDO('mysql:host=mysql2.webland.ch;dbname=d041e_dagomez', 'd041e_dagomez', '54321_Db!!!', [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+        ]);
+    } catch (PDOException $e) {
+        die('Keine Verbindung zu Datenbabk möglich: ' . $e->getMessage());
+    }
+
+}
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +49,6 @@ $stmt->execute([':username' => "$username", ':titel' => "$titel", ':text' => "$t
         <textarea cols="50" rows="5" name="text" value="<?= $text ?? ''?>"></textarea><br><br>
         <input type="submit" value="Posten!">
     </div>
-
     <div id="footer">
         <p>Footer</p>
     </div>

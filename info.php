@@ -17,7 +17,7 @@
     <br>
     <br>
     <div id="infotext">
-        <p>Dieser Blog wurde von Nando Gmüdner 2021 im Basislehrjahr in Adligenswil gemacht.</p>
+        <p>Dieser Blog wurde von Nando Gmünder 2021 im Basislehrjahr in Adligenswil gemacht.</p>
         <br>
         <br>
         <p>ツ</p>
