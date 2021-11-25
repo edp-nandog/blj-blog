@@ -1,27 +1,20 @@
 <?php
 
-
-[$username = $_POST['name'] ?? ''];
-[$titel = $_POST['titel'] ?? ''];
-[$text = $_POST['text'] ?? ''];
+[$username = $_POST['name']?? ''];
+[$titel = $_POST['titel']?? ''];
+[$text = $_POST['text']?? ''];
+[$bild = $_POST['bild']?? ''];
 
 $dbConnection = new PDO('mysql:host=localhost;dbname=blog', 'root', '');
-$stmt = $dbConnection->prepare('INSERT INTO posts (created_by, created_at, post_title, post_text)
-                                    VALUES (:username, now(), :titel, :text)');
+$stmt = $dbConnection->prepare('INSERT INTO posts (created_by, Date, post_title, post_text, bild)
+                                    VALUES (:username, Now(), :titel, :text, :bild)');
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-$stmt->execute([':username' => "$username", ':titel' => "$titel", ':text' => "$text"]);
 
-function connectToIPDatabase() {
-    try {
-        return new PDO('mysql:host=mysql2.webland.ch;dbname=d041e_dagomez', 'd041e_dagomez', '54321_Db!!!', [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-        ]);
-    } catch (PDOException $e) {
-        die('Keine Verbindung zu Datenbabk möglich: ' . $e->getMessage());
-    }
-
+$stmt->execute([':username' => "$username", ':titel' => "$titel", ':text' => "$text", ':bild' => "$bild"]);
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,12 +39,22 @@ function connectToIPDatabase() {
         <p>Titel</p>
         <input type="text" name="titel" value="<?= $titel ?? ''?>">
         <p>Text</p>
-        <textarea cols="50" rows="5" name="text" value="<?= $text ?? ''?>"></textarea><br><br>
-        <input type="submit" value="Posten!">
-    </div>
-    <div id="footer">
-        <p>Footer</p>
+        <textarea cols="50" rows="5" name="text" value="<?= $text ?? ''?>"></textarea>
+        <p>Bild (URL)</p>
+        <input type="url" name="bild" value="<?= $bild ?? ''?>">
+        <br>
+        <br>
+        <input type="submit" name="button" value="Posten">
+        <br>
+        <br>
+        <br>
     </div>
     </form>
+    <div id="footer">
+        <p>ツ</p>
+    </div>
+    
 </body>
 </html>
+
+

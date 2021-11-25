@@ -38,15 +38,20 @@ $pdo = new PDO('mysql:host=localhost;dbname=' . $database, $user, $password, [
         $titel = htmlspecialchars($datas['post_title']);
         $name =  htmlspecialchars($datas['created_by']);
         $text =  htmlspecialchars($datas['post_text']);
+        $time =  htmlspecialchars($datas['Date']);
+        $bild = htmlspecialchars($datas['bild']);
         
     
         echo("
 
         <div class='posts'>
         <h2>$titel</h2>
-        <h5>$name</h5>
-        <p>$text</p><br>
+        <h5>$name, $time</h5>
+        <p>$text</p>
+        <img scr='$bild>
         </div>
+        <br>
+        <br>
             
         ");
     
@@ -55,7 +60,7 @@ $pdo = new PDO('mysql:host=localhost;dbname=' . $database, $user, $password, [
     ?>
 
     <div id="footer">
-        <p>Footer</p>
+        <p>ツ</p>
     </div>
     </form>
 </body>
