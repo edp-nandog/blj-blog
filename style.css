@@ -47,11 +47,15 @@ body {
 
 .line {
     border: 0;
-    border-top: 1px dashed #000; 
+    border-top: 1px dashed #000;
 }
 
 #date {
     font-size: 2px;
+}
+
+.image {
+    max-width: 300px;
 }
 
 

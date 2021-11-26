@@ -41,21 +41,31 @@ $pdo = new PDO('mysql:host=localhost;dbname=' . $database, $user, $password, [
         $time =  htmlspecialchars($datas['Date']);
         $bild = htmlspecialchars($datas['bild']);
         
-    
-        echo("
+        if(empty($bild)){
+            echo("
 
-        <div class='posts'>
-        <h2>$titel</h2>
-        <h5>$name, $time</h5>
-        <p>$text</p>
-        <img scr='$bild>
-        </div>
-        <br>
-        <br>
-            
-        ");
-    
-        
+            <div class='posts'>
+            <h2>$titel</h2>
+            <h5>$name, $time</h5>
+            <p>$text</p>
+            </div>
+            <br>
+            <hr class='line'>
+                
+            ");
+        }else{
+            echo("
+
+            <div class='posts'>
+            <h2>$titel</h2>
+            <h5>$name, $time</h5>
+            <p>$text</p>
+            <img class='image' src='$bild'>
+            </div>
+            <br>
+            <hr class='line'>    
+            ");
+        }        
 }
     ?>
 
