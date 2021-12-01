@@ -1,5 +1,5 @@
 <?php
-
+$errors = [];
 [$username = $_POST['name']?? ''];
 [$titel = $_POST['titel']?? ''];
 [$text = $_POST['text']?? ''];
@@ -8,11 +8,26 @@
 $dbConnection = new PDO('mysql:host=localhost;dbname=blog', 'root', '');
 $stmt = $dbConnection->prepare('INSERT INTO posts (created_by, Date, post_title, post_text, bild)
                                     VALUES (:username, Now(), :titel, :text, :bild)');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    $username = trim($username);
+    $titel = trim($titel);
+    $text = trim($text);
+                                
+    if ($username === '') {
+        $errors[] = 'Bitte geben Sie einen Namen ein.';
+    }
+    if ($titel === '') {
+    $errors[] = 'Bitte geben Sie einen Titel ein.';
+    }
+    if ($text === '') {
+    $errors[] = 'Bitte geben Sie einen Text ein.';
+    }
 
 $stmt->execute([':username' => "$username", ':titel' => "$titel", ':text' => "$text", ':bild' => "$bild"]);
 }
+
 
 
 ?>
@@ -22,7 +37,7 @@ $stmt->execute([':username' => "$username", ':titel' => "$titel", ':text' => "$t
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>NG's Blog</title>
     <link rel="stylesheet" href="erstellen.css">
 </head>
 <body>
@@ -33,6 +48,15 @@ $stmt->execute([':username' => "$username", ':titel' => "$titel", ':text' => "$t
         <a class="directory" href="erstellen.php">Erstellen</a>
         <a class="directory" href="info.php">Info</a>
     </div><br>
+    <?php if (count($errors) > 0) { ?>
+            <div class="error-box">
+                <ul>
+                    <?php foreach ($errors as $error) { ?>
+                        <li><?= $error ?></li>
+                    <?php } ?>
+                </ul>
+            </div>
+        <?php } ?>
     <div id="container2">
         <p>Name</p>
         <input type="text" name="name" value="<?= $username ?? '' ?>">
