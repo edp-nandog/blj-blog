@@ -56,6 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a class="directory" href="erstellen.php">Erstellen</a>
         <a class="directory" href="info.php">Info</a>
     </div><br>
+
+    <!-- Errorbox -->
     <?php if (count($errors) > 0) { ?>
             <div class="error-box">
                 <ul>
@@ -65,6 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </ul>
             </div>
         <?php } ?>
+        
+    <!-- Ende HTML -->    
     <div id="container2">
         <p>Name</p>
         <input type="text" name="name" value="<?= $username ?? '' ?>">
