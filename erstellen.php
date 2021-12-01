@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($text === '') {
     $errors[] = 'Bitte geben Sie einen Text ein.';
     }
+    
 
     // execute
     if(empty($errors)){
