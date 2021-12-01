@@ -1,36 +1,44 @@
 <?php
-$errors = [];
+
+/* was wird gepostet */
 [$username = $_POST['name']?? ''];
 [$titel = $_POST['titel']?? ''];
 [$text = $_POST['text']?? ''];
 [$bild = $_POST['bild']?? ''];
 
+/* Datenbank Verbindung */
 $dbConnection = new PDO('mysql:host=localhost;dbname=blog', 'root', '');
 $stmt = $dbConnection->prepare('INSERT INTO posts (created_by, Date, post_title, post_text, bild)
                                     VALUES (:username, Now(), :titel, :text, :bild)');
 
+/* ERROR */
+$errors = [];
 
+/* Request Methode */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    /* Trim und Errors */
     $username = trim($username);
     $titel = trim($titel);
     $text = trim($text);
                               
     if ($username === '') {
     $errors[] = 'Bitte geben Sie einen Namen ein.';
-}
-if ($titel === '') {
-$errors[] = 'Bitte geben Sie einen Titel ein.';
-}
-if ($text === '') {
-$errors[] = 'Bitte geben Sie einen Text ein.';
-}
+    }
+    if ($titel === '') {
+    $errors[] = 'Bitte geben Sie einen Titel ein.';
+    }
+    if ($text === '') {
+    $errors[] = 'Bitte geben Sie einen Text ein.';
+    }
 
+    /* execute */
     $stmt->execute([':username' => "$username", ':titel' => "$titel", ':text' => "$text", ':bild' => "$bild"]);
 }
 
-
 ?>
+
+<!-- HTML -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

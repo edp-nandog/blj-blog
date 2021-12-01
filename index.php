@@ -1,4 +1,7 @@
 <?php
+
+
+/* Datenbank verbindung */
 $user = 'root';
 $password = '';
 $database = 'blog';
@@ -9,6 +12,7 @@ $pdo = new PDO('mysql:host=localhost;dbname=' . $database, $user, $password, [
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 ]);
 
+/* Likesystem */
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $theid = $_POST['id'];
     $stmt = $pdo->query("SELECT likes from posts WHERE posts = '$theid'");
@@ -22,9 +26,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     ");
 }
 
-
 ?>
-
+<!-- HTML -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,6 +47,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     </div>
     </form>
     <br>
+
+    <!-- Auslesen und Anzeigen der Posts aus der Datenbank -->
     <?php
 
     $stmt = $pdo->query('SELECT * FROM `posts` ORDER BY date DESC;');
@@ -68,6 +73,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <input type='hidden' name='id' value='$id'/>
                 <button class='like' type='submit'>like</button>
             </form>
+            
             </div>
             <br>
             <hr class='line'>
@@ -84,6 +90,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <input type='hidden' name='id' value='$id'/>
                 <button class='like' type='submit'>Like</button>
             </form>
+            <p>Bild (URL)</p>
             </div>
             <br>
             <hr class='line'>
@@ -91,6 +98,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }        
 }
     ?>
+
+    <!-- Ende HTML -->
     </form>
 </body>
 </html>
