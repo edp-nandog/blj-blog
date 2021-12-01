@@ -1,23 +1,23 @@
 <?php
 
-/* was wird gepostet */
+// was wird gepostet 
 [$username = $_POST['name']?? ''];
 [$titel = $_POST['titel']?? ''];
 [$text = $_POST['text']?? ''];
 [$bild = $_POST['bild']?? ''];
 
-/* Datenbank Verbindung */
+// Datenbank Verbindung 
 $dbConnection = new PDO('mysql:host=localhost;dbname=blog', 'root', '');
 $stmt = $dbConnection->prepare('INSERT INTO posts (created_by, Date, post_title, post_text, bild)
                                     VALUES (:username, Now(), :titel, :text, :bild)');
 
-/* ERROR */
+// ERROR 
 $errors = [];
 
-/* Request Methode */
+// Request Methode 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    /* Trim und Errors */
+    // Trim und Errors 
     $username = trim($username);
     $titel = trim($titel);
     $text = trim($text);
@@ -32,8 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors[] = 'Bitte geben Sie einen Text ein.';
     }
 
-    /* execute */
-    $stmt->execute([':username' => "$username", ':titel' => "$titel", ':text' => "$text", ':bild' => "$bild"]);
+    // execute
+    if(empty($errors)){
+        $stmt->execute([':username' => "$username", ':titel' => "$titel", ':text' => "$text", ':bild' => "$bild"]);
+    }
 }
 
 ?>
@@ -67,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </ul>
             </div>
         <?php } ?>
-        
+
     <!-- Ende HTML -->    
     <div id="container2">
         <p>Name</p>
