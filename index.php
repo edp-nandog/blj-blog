@@ -36,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </head>
 <body>
     <form action="index.php" method="GET">
-    <h1 id="header">NG's Blog</h1><br>
+    <h1 id="header">NG's Blog ツ</h1><br>
     <div class="container">
         <a class="directory" href="index.php">Aktuell</a>
         <a class="directory" href="erstellen.php">Erstellen</a>
@@ -82,7 +82,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             <p>Likes: $likes</p>
             <form name='like' action='' method='POST'>
                 <input type='hidden' name='id' value='$id'/>
-                <button class='like' type='submit'>like</button>
+                <button class='like' type='submit'>Like</button>
             </form>
             </div>
             <br>
@@ -91,9 +91,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }        
 }
     ?>
-    <div id="footer">
-        <p>ツ</p>
-    </div>
     </form>
 </body>
 </html>

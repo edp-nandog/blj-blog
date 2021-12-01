@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="info.css">
 </head>
 <body>
-    <h1 id="header">NG's Blog</h1><br>
+    <h1 id="header">NG's Blog ツ</h1><br>
     <div class="container">
         <a class="directory" href="index.php">Aktuell</a>
         <a class="directory" href="erstellen.php">Erstellen</a>
@@ -41,9 +41,6 @@ $pdo = new PDO('mysql:host=mysql2.webland.ch;dbname=d041e_dagomez', 'd041e_dagom
     }
     ?>
     <br>
-    </div>
-    <div id="footer">
-        <p>ツ</p>
     </div>
 </body>
 </html>
