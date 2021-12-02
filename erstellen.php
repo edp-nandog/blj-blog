@@ -1,5 +1,4 @@
 <?php
-
 // was wird gepostet 
 [$username = $_POST['name']?? ''];
 [$titel = $_POST['titel']?? ''];
