@@ -1,5 +1,7 @@
 <?php
 
+
+
 // Datenbank verbindung 
 $user = 'root';
 $password = '';
@@ -13,16 +15,30 @@ $pdo = new PDO('mysql:host=localhost;dbname=' . $database, $user, $password, [
 
 // Likesystem 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $theid = $_POST['id'];
-    $stmt = $pdo->query("SELECT likes from posts WHERE posts = '$theid'");
-    foreach($stmt->fetchAll() as $item){
-        $likes = $item['likes'];
+    $fname = $_POST['fname'];
+    if($fname == "like"){
+        $theid = $_POST['id'];
+        $stmt = $pdo->query("SELECT likes from posts WHERE posts = '$theid'");
+        foreach($stmt->fetchAll() as $item){
+            $likes = $item['likes'];
+        }
+        $newlikes = $likes+1;
+        $stmt = $pdo->query("UPDATE posts SET likes = '$newlikes' WHERE posts = '$theid'");
+        echo("
+        <script type='text/javascript'>window.location = './index.php';</script>
+        ");
     }
-    $newlikes = $likes+1;
-    $stmt = $pdo->query("UPDATE posts SET likes = '$newlikes' WHERE posts = '$theid'");
-    echo("
-    <script type='text/javascript'>window.location = './index.php';</script>
-    ");
+
+    // Commentsystem
+    if($fname == "comment"){
+        $thecomment = $_POST['comment'];
+        $thecommentid = $_POST['id'];
+        $dbConnection = new PDO('mysql:host=localhost;dbname=blog', 'root', '');
+        $stmt = $dbConnection->prepare('INSERT INTO comments (comment, blogid)
+                                    VALUES (:comment, :blogid)');
+
+        $stmt->execute([':comment' => "$thecomment", ':blogid' => "$thecommentid"]);
+}
 }
 
 ?>
@@ -59,8 +75,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $bild = htmlspecialchars($datas['bild']);
         $likes = $datas['likes'];
         $id = $datas['posts'];
-
+    
+    
         
+
         if(empty($bild)){
             echo("
             <div class='posts'>
@@ -69,11 +87,28 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             <p>$text</p>
             <p>Likes: $likes</p>
             <form name='like' action='' method='POST'>
+                <input type='hidden' name='fname' value='like'/>
                 <input type='hidden' name='id' value='$id'/>
                 <button class='like' type='submit'>like</button>
             </form>
-            
-            </div>
+            <form name='comment' action='' method='POST'>
+                <input type='hidden' name='fname' value='comment'/>
+                <input type='hidden' name='id' value='$id'/>
+                <br>
+                <input id='comment' class='input' type='text' name='comment'>
+                <button type='submit'>Post</button>
+            </form>
+            <h4>Kommentare</h4>
+            ");
+            $stmtt = $pdo->query('SELECT * FROM `comments`');
+            foreach($stmtt->fetchAll() as $cmds) {
+            $comments = $cmds['comment'];
+            $commentid = $cmds['blogid'];
+                if($commentid == $id){
+                    echo "<p>$comments</p>";
+                }
+            }
+            echo("</div>
             <br>
             <hr class='line'>
             ");
@@ -86,15 +121,35 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             <img class='image' src='$bild'>
             <p>Likes: $likes</p>
             <form name='like' action='' method='POST'>
+                <input type='hidden' name='fname' value='like'/>
                 <input type='hidden' name='id' value='$id'/>
                 <button class='like' type='submit'>Like</button>
             </form>
+            <form name='comment' action='' method='POST'>
+                <input type='hidden' name='fname' value='comment'/>
+                <input type='hidden' name='id' value='$id'/>
+                <br>
+                <input id='comment' class='input' type='text' name='comment'>
+                <button type='submit'>Post</button>
+            </form>
+            <h4>Kommentare</h4>
+            ");
+            
+            $stmtt = $pdo->query('SELECT * FROM `comments`');
+            foreach($stmtt->fetchAll() as $cmds) {
+            $comments = $cmds['comment'];
+            $commentid = $cmds['blogid'];
+                if($commentid == $id){
+                    echo "<p>$comments</p>";
+                }
+            }
+            echo("</div>
             </div>
             <br>
             <hr class='line'>
             ");
-        }        
-}
+        }
+    }        
     ?>
 
     <!-- Ende HTML -->
