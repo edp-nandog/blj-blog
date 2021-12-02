@@ -1,10 +1,6 @@
 <?php
 // Datenbank verbindung 
-$user = 'root';
-$password = '';
-$database = 'blog';
-
-$pdo = new PDO('mysql:host=localhost;dbname=' . $database, $user, $password, [
+$pdo = new PDO('mysql:host=mysql2.webland.ch ;dbname=d041e_nagmuender, d041e_nagmuender, 54321_Db!!!', [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -30,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if($fname == "comment"){
         $thecomment = $_POST['comment'];
         $thecommentid = $_POST['id'];
-        $dbConnection = new PDO('mysql:host=localhost;dbname=blog', 'root', '');
+        $dbConnection = new PDO('mysql:host=mysql2.webland.ch ;dbname=d041e_nagmuender, d041e_nagmuender, 54321_Db!!!',);
         $stmt = $dbConnection->prepare('INSERT INTO comments (comment, blogid)
                                     VALUES (:comment, :blogid)');
 

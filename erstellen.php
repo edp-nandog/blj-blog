@@ -6,7 +6,7 @@
 [$bild = $_POST['bild']?? ''];
 
 // Datenbank Verbindung 
-$dbConnection = new PDO('mysql:host=localhost;dbname=blog', 'root', '');
+$dbConnection = new PDO('mysql:host=mysql2.webland.ch ;dbname=d041e_nagmuender, d041e_nagmuender, 54321_Db!!!',);
 $stmt = $dbConnection->prepare('INSERT INTO posts (created_by, Date, post_title, post_text, bild)
                                     VALUES (:username, Now(), :titel, :text, :bild)');
 
