@@ -1,7 +1,5 @@
 <?php
 
-
-
 // Datenbank verbindung 
 $user = 'root';
 $password = '';
@@ -40,7 +38,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $stmt->execute([':comment' => "$thecomment", ':blogid' => "$thecommentid"]);
 }
 }
-
 ?>
 <!-- HTML -->
 <!DOCTYPE html>
@@ -75,10 +72,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $bild = htmlspecialchars($datas['bild']);
         $likes = $datas['likes'];
         $id = $datas['posts'];
-    
-    
-        
-
+ 
         if(empty($bild)){
             echo("
             <div class='posts'>
